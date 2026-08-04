@@ -1,0 +1,3 @@
+-r requirements-base.txt
+-r requirements-etl.txt
+-r requirements-dashboard.txt

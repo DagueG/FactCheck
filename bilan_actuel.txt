@@ -1,0 +1,65 @@
+BILAN ACTUEL DU PROJET FACTCHECK
+================================
+
+Date de synthèse : 2026-08-04
+
+Contexte général
+----------------
+- Projet en cours d’implémentation autour d’un pipeline d’extraction et de traitement de données d’actualité.
+- Le workspace contient déjà une structure de travail organisée avec un dossier d’extraction, des données brutes/traitées, des logs et un ensemble de fichiers de dépendances Python.
+- L’objectif principal en cours est de mettre en place une extraction de sources d’actualité puis de préparer les données pour une étape de traitement/visualisation.
+
+État du workspace
+-----------------
+- Dossier racine du projet : FactCheck
+- Dossier principal d’extraction : 02_extraction/
+- Dossier de données : data/
+- Dossier de logs : logs/
+- Fichier de dépendances principal : requirements.txt
+
+Environnement Python
+--------------------
+- Un environnement virtuel a été créé localement dans .venv.
+- L’environnement est activé dans la session terminal actuelle.
+- Les dépendances de base ont été installées ou sont prévues via les fichiers requirements*.txt.
+- Le projet utilise probablement Python 3.x avec des dépendances standard comme requests, python-dotenv, pandas, numpy, Pillow, Streamlit et Airflow selon les fichiers de requirements.
+
+Éléments déjà présents
+---------------------
+- Fichier de configuration centralisée : 02_extraction/config.py
+  - Charge les variables d’environnement depuis .env.
+  - Initialise les répertoires data/raw, data/processed, data/images et logs.
+  - Lit API_KEY_NEWS_API depuis .env.
+  - Définit la configuration de l’API News et les domaines de confiance.
+
+- Extracteur News API : 02_extraction/news_api_extractor.py
+  - Permet d’extraire des top headlines depuis News API.
+  - Standardise les articles dans un format interne.
+  - Sauvegarde les résultats en JSON dans data/raw.
+  - Inclut un logging configurable et un mode de test exécutable directement.
+
+- Fichiers de dépendances :
+  - requirements.txt
+  - requirements-base.txt
+  - requirements-etl.txt
+  - requirements-dashboard.txt
+
+Points de vigilance / éléments à vérifier
+----------------------------------------
+- Le fichier .env doit contenir la clé API_KEY_NEWS_API pour que l’extraction fonctionne.
+- Le script d’extraction dépend de la présence correcte de cette clé et des modules Python associés.
+- Les dépendances Airflow/Streamlit peuvent être lourdes et peuvent nécessiter un temps d’installation supplémentaire selon l’environnement.
+
+Informations utiles pour reprendre la discussion
+----------------------------------------------
+- Si la prochaine conversation reprend ce projet, il est utile de commencer par vérifier :
+  1. l’état du fichier .env ;
+  2. l’installation des dépendances Python dans .venv ;
+  3. le fonctionnement du script d’extraction News API ;
+  4. la structure des données déjà extraites dans data/raw et data/processed.
+
+Résumé rapide
+-------------
+- La base du pipeline d’extraction est déjà en place.
+- L’extracteur News API fonctionne comme cœur de départ pour récupérer des articles.
+- Le prochain travail logique consiste généralement à valider l’extraction réelle, vérifier la qualité des données et poursuivre le pipeline de traitement.
