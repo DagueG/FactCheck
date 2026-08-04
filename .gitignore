@@ -38,3 +38,9 @@ htmlcov/
 build/
 dist/
 *.egg-info/
+
+# Airflow (livrable 4)
+04_orchestration/airflow/
+04_orchestration/.env
+!.env.example
+data/processed/*.db

@@ -1,0 +1,103 @@
+---
+# docker-compose Airflow (LocalExecutor) pour le flux ETL FactCheck.
+# Stack volontairement legere : pas de Celery/Redis, juste ce qu'il faut pour une demo locale.
+#   - airflow-postgres : base de METADONNEES d'Airflow
+#   - factcheck-db     : base des DONNEES applicatives (cible du "load")
+#   - airflow-init / webserver / scheduler
+#
+# Lancement (depuis 04_orchestration/) :
+#   docker compose up -d
+#   -> UI : http://localhost:8080  (admin / admin)
+
+x-airflow-common: &airflow-common
+  image: apache/airflow:2.7.3
+  environment: &airflow-common-env
+    AIRFLOW__CORE__EXECUTOR: LocalExecutor
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@airflow-postgres/airflow
+    AIRFLOW__CORE__DAGS_FOLDER: /opt/airflow/project/04_orchestration/dags
+    AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+    # Base cible du chargement (identifiants via l'environnement, pas dans le code)
+    FACTCHECK_DB_URI: postgresql+psycopg2://factcheck:factcheck@factcheck-db:5432/factcheck
+    # Dependances Python installees au demarrage du conteneur (pratique pour une demo).
+    # En production, on figerait plutot ces libs dans une image custom (Dockerfile).
+    _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:-pandas pyarrow requests python-dotenv}
+  volumes:
+    - ../:/opt/airflow/project           # tout le projet FactCheck monte dans le conteneur
+    - ./airflow/logs:/opt/airflow/logs   # logs persistes sur l'hote (pour captures d'ecran)
+  user: "${AIRFLOW_UID:-50000}:0"
+  depends_on: &airflow-common-depends-on
+    airflow-postgres:
+      condition: service_healthy
+
+services:
+  airflow-postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
+    volumes:
+      - airflow-db-volume:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "airflow"]
+      interval: 10s
+      retries: 5
+    restart: always
+
+  factcheck-db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: factcheck
+      POSTGRES_PASSWORD: factcheck
+      POSTGRES_DB: factcheck
+    ports:
+      - "5433:5432"                      # accessible depuis l'hote sur le port 5433
+    volumes:
+      - factcheck-db-volume:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "factcheck"]
+      interval: 10s
+      retries: 5
+    restart: always
+
+  airflow-init:
+    <<: *airflow-common
+    entrypoint: /bin/bash
+    command:
+      - -c
+      - |
+        airflow db migrate
+        airflow users create \
+          --username admin --password admin \
+          --firstname Admin --lastname CheckIt \
+          --role Admin --email admin@checkit.ai || true
+    restart: on-failure
+
+  airflow-webserver:
+    <<: *airflow-common
+    command: webserver
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    restart: always
+    depends_on:
+      <<: *airflow-common-depends-on
+      airflow-init:
+        condition: service_completed_successfully
+
+  airflow-scheduler:
+    <<: *airflow-common
+    command: scheduler
+    restart: always
+    depends_on:
+      <<: *airflow-common-depends-on
+      airflow-init:
+        condition: service_completed_successfully
+
+volumes:
+  airflow-db-volume:
+  factcheck-db-volume:

@@ -61,10 +61,17 @@ IMAGE_CONFIG = {
     "valid_content_types": ["image/jpeg", "image/png", "image/webp", "image/gif", "image/bmp"],
 }
 
-# --- Domaines de confiance (sert au label faible, etapes suivantes) ---
+# --- Domaines de confiance (signal FAIBLE de fiabilite, pas un label vrai/faux) ---
+# Liste volontairement curable : a etendre/ajuster selon la politique editoriale
+# de CheckIt.AI. Etre absent ne signifie pas "non fiable", seulement "non evalue".
 TRUSTED_DOMAINS = [
+    # International
     "theguardian.com", "bbc.com", "reuters.com", "apnews.com",
-    "france24.com", "lemonde.fr", "20minutes.fr", "liberation.fr",
+    "nytimes.com", "washingtonpost.com", "afp.com", "rfi.fr",
+    # France
+    "france24.com", "franceinfo.fr", "francetvinfo.fr", "lemonde.fr",
+    "lefigaro.fr", "liberation.fr", "leparisien.fr", "lesechos.fr",
+    "ouest-france.fr", "nouvelobs.fr", "20minutes.fr",
 ]
 
 # --- Logging ---
