@@ -43,9 +43,15 @@ def parse_args(argv=None):
                    help="Source : auto (News API puis repli), newsapi seul, ou fallback seul.")
     p.add_argument("--no-image-check", action="store_true",
                    help="Desactive la verification reseau des images (plus rapide, hors ligne).")
-    p.add_argument("--output", default="news_api_articles.json",
-                   help="Nom du fichier de sortie dans data/raw/.")
+    p.add_argument("--output", default=None,
+                   help="Nom du fichier de sortie dans data/raw/. "
+                        "Par defaut, deduit de la source reelle (evite d'ecraser).")
     return p.parse_args(argv)
+
+
+def default_output_name(origin):
+    """Nom de fichier par defaut, deduit de la source reellement utilisee."""
+    return "fallback_articles.json" if origin == "fallback" else "news_api_articles.json"
 
 
 def acquire_raw(source, query, language, page_size):
@@ -104,8 +110,9 @@ def run(argv=None):
     check_access = not args.no_image_check
     standardized, stats = validate_articles(standardized, check_access=check_access)
 
-    # 4. Sauvegarde
-    output_path = save_articles(standardized, args.output)
+    # 4. Sauvegarde (nom deduit de la source reelle si non impose -> pas d'ecrasement)
+    output_name = args.output or default_output_name(origin)
+    output_path = save_articles(standardized, output_name)
 
     # Rapport de synthese
     logger.info("[SYNTHESE] origine=%s | total=%d | avec image=%d | multimodal valides=%d",
