@@ -1,0 +1,62 @@
+[
+  {
+    "source": {"id": null, "name": "Le Monde"},
+    "author": "Redaction Le Monde",
+    "title": "Canicule : un nouvel episode de fortes chaleurs attendu sur le sud de la France",
+    "description": "Meteo-France place plusieurs departements en vigilance orange alors qu'une vague de chaleur s'installe pour la fin de semaine.",
+    "url": "https://www.lemonde.fr/planete/article/exemple-canicule.html",
+    "urlToImage": "https://picsum.photos/seed/factcheck-canicule/640/360.jpg",
+    "publishedAt": "2026-08-01T09:12:00Z",
+    "content": "Meteo-France a place jeudi plusieurs departements du sud du pays en vigilance orange canicule. Les temperatures pourraient depasser 40 degres localement d'ici dimanche, selon les previsionnistes."
+  },
+  {
+    "source": {"id": null, "name": "France 24"},
+    "author": "Service International",
+    "title": "Sommet europeen : les Vingt-Sept cherchent un accord sur l'energie",
+    "description": "Les chefs d'Etat et de gouvernement se reunissent a Bruxelles pour tenter de coordonner leur reponse a la hausse des prix.",
+    "url": "https://www.france24.com/fr/europe/exemple-sommet-energie.html",
+    "urlToImage": "https://picsum.photos/seed/factcheck-sommet/640/360.jpg",
+    "publishedAt": "2026-08-01T11:40:00Z",
+    "content": "Reunis a Bruxelles, les dirigeants europeens ont entame des discussions sur une reponse commune a la volatilite des prix de l'energie. Plusieurs propositions sont sur la table."
+  },
+  {
+    "source": {"id": null, "name": "Liberation"},
+    "author": "Cellule Economie",
+    "title": "Emploi : le taux de chomage se stabilise au deuxieme trimestre",
+    "description": "Selon les derniers chiffres publies, le marche du travail marque une pause apres plusieurs trimestres de baisse.",
+    "url": "https://www.liberation.fr/economie/exemple-chomage.html",
+    "urlToImage": "https://picsum.photos/seed/factcheck-emploi/640/360.jpg",
+    "publishedAt": "2026-07-31T16:05:00Z",
+    "content": "Le taux de chomage est reste quasi stable au deuxieme trimestre, indiquent les statistiques officielles. Les economistes soulignent une conjoncture incertaine pour la fin de l'annee."
+  },
+  {
+    "source": {"id": null, "name": "BBC News"},
+    "author": "BBC",
+    "title": "Tech giants face new questions over data privacy rules",
+    "description": "Lawmakers push for tighter oversight as companies defend their handling of user data.",
+    "url": "https://www.bbc.com/news/exemple-data-privacy",
+    "urlToImage": "https://picsum.photos/seed/factcheck-privacy/640/360.jpg",
+    "publishedAt": "2026-07-31T08:20:00Z",
+    "content": "Several technology companies were questioned by lawmakers this week over how they collect and store personal data. Regulators have signalled that new rules could follow."
+  },
+  {
+    "source": {"id": null, "name": "Reuters"},
+    "author": "Reuters Staff",
+    "title": "Markets steady as investors await central bank decision",
+    "description": "Global stocks held near recent levels ahead of an expected policy announcement.",
+    "url": "https://www.reuters.com/markets/exemple-markets-steady",
+    "urlToImage": "https://picsum.photos/seed/factcheck-markets/640/360.jpg",
+    "publishedAt": "2026-07-30T14:00:00Z",
+    "content": "Global equity markets were broadly stable on Wednesday as traders awaited a closely watched central bank meeting expected to shape the outlook for interest rates."
+  },
+  {
+    "source": {"id": null, "name": "20 Minutes"},
+    "author": "20 Minutes avec AFP",
+    "title": "Transports : la nouvelle vignette environnementale entre en vigueur",
+    "description": "Le dispositif concerne desormais l'ensemble des vehicules circulant dans les grandes agglomerations.",
+    "url": "https://www.20minutes.fr/societe/exemple-vignette.html",
+    "urlToImage": "https://picsum.photos/seed/factcheck-vignette/640/360.jpg",
+    "publishedAt": "2026-07-30T07:45:00Z",
+    "content": "Une nouvelle vignette environnementale devient obligatoire pour les vehicules circulant dans plusieurs metropoles. Les automobilistes disposent d'un delai pour se mettre en conformite."
+  }
+]
